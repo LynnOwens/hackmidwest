@@ -10,9 +10,17 @@ const twitterClient = new TwitterClient({
 })
 
 const params = {
-    q: `UberConf`,
-    count: 4
+    count: 1
 };
+
+
+const args = JSON.stringify(process.argv.slice(2));
+let tweetSearchTerm = args.split('=')[1].slice(0, -2)
+
+params.q = tweetSearchTerm;
+console.log('You are searching for tweets by: ' + params.q)
+
+
 
 let data = '';
 
@@ -20,7 +28,7 @@ twitterClient.tweets.search(params).then(tweet => {
     data = JSON.stringify(tweet);
 
     // write JSON string to a file
-    fs.writeFile('twitter-client/tmp/data.json', data, (err) => {
+    fs.writeFile('./tmp/data.json', data, (err) => {
         if (err) {
             throw err;
         }
