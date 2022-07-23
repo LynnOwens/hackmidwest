@@ -1,7 +1,9 @@
 WORKING_DIR=/repos/hackmidwest
 apt install node-js npm python3
-wget https://bootstrap.pypa.io/get-pip.py
-python3 get-pip.py
+if [[ ! -f get-pip.py ]]; then
+  wget https://bootstrap.pypa.io/get-pip.py
+  python3 get-pip.py
+fi
 pip install -r requirements.txt
 cd twitter-client || exit
 npm install
