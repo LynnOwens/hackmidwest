@@ -34,13 +34,17 @@ async def process_term():
 
     if sentiment > 0:
         if good_plug:
+            await good_plug.update()
             await good_plug.turn_on()
         if bad_plug:
+            await bad_plug.update()
             await bad_plug.turn_off()
     else:
         if good_plug:
+            await good_plug.update()
             await good_plug.turn_off()
         if bad_plug:
+            await bad_plug.update()
             await bad_plug.turn_on()
 
     return 'foozbaz'
