@@ -1,1 +1,2 @@
-python3 main.py 146.190.42.170 80
+# mac
+python3 main.py 127.0.0.1 8081
