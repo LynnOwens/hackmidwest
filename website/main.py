@@ -21,11 +21,13 @@ def process_term():
     run_twitter_client(request.form['term'])
     tweets: List[dict] = read_data_file()
     sentiment: float = analyze_sentiment(tweets)
+    call_remote(sentiment)
     return str(sentiment)
 
 
-def call_remote():
-    response = requests.request('GET', 'https://www.google.com')
+def call_remote(sentiment: float):
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    response = requests.request('POST', 'http://127.0.0.1:8081/activate', headers=headers, json={'sentiment': sentiment})
     print(response.content)
 
 

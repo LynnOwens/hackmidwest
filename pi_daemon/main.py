@@ -1,6 +1,6 @@
 import argparse
 
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -8,6 +8,12 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return "foo"
+
+
+@app.route("/activate", methods=['POST'])
+def process_term():
+    print(request.get_json())
+    return 'foozbaz'
 
 
 if __name__ == "__main__":
