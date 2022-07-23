@@ -1,4 +1,5 @@
 import json
+import subprocess
 
 import requests
 from flask import Flask, render_template, request
@@ -42,10 +43,15 @@ def read_data_file() -> List[dict]:
         return json.load(data_file)['statuses']
 
 
+def run_twitter_client():
+    subprocess.run(['node', '../twitter-client/index.js'])
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SBS GitLab Project Management Tool")
     parser.add_argument('listenIp', help='The listen IP of the site')
     parser.add_argument('listenPort', help='The listen port of the site')
     args = parser.parse_args()
+    run_twitter_client()
     analyze_sentiment(read_data_file())
     app.run(host=args.listenIp, port=args.listenPort, debug=True)
