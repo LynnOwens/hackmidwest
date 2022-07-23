@@ -2,4 +2,5 @@
 analyzer/data.csv
 analyzer/output.json
 node_modules/*
-twitter-client/tmp
+twitter-client/tmp/*
+.env
