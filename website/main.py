@@ -18,7 +18,10 @@ def index():
 
 @app.route("/process_term", methods=['POST'])
 def process_term():
-    return request.form['term']
+    run_twitter_client(request.form['term'])
+    tweets: List[dict] = read_data_file()
+    sentiment: float = analyze_sentiment(tweets)
+    return str(sentiment)
 
 
 def call_remote():
@@ -30,12 +33,12 @@ def average_list(data: List[float]) -> float:
     return sum(data) / len(data)
 
 
-def analyze_sentiment(tweets: List[dict]):
+def analyze_sentiment(tweets: List[dict]) -> float:
     sentiments: List[float] = []
     for tweet in tweets:
         tweet_text_blob = TextBlob(tweet['text'])
         sentiments.append(tweet_text_blob.sentiment.polarity)
-    print(str(average_list(sentiments)))
+    return average_list(sentiments)
 
 
 def read_data_file() -> List[dict]:
@@ -43,7 +46,7 @@ def read_data_file() -> List[dict]:
         return json.load(data_file)['statuses']
 
 
-def run_twitter_client():
+def run_twitter_client(term: str):
     subprocess.run(['node', 'twitter-client/index.js'], cwd='..')
 
 
@@ -52,6 +55,4 @@ if __name__ == "__main__":
     parser.add_argument('listenIp', help='The listen IP of the site')
     parser.add_argument('listenPort', help='The listen port of the site')
     args = parser.parse_args()
-    run_twitter_client()
-    analyze_sentiment(read_data_file())
     app.run(host=args.listenIp, port=args.listenPort, debug=True)
