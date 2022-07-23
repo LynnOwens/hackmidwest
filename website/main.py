@@ -37,9 +37,9 @@ def analyze_sentiment(tweets: List[dict]):
     print(str(average_list(sentiments)))
 
 
-def read_data_file() -> dict:
-    with open('twitter_data') as data_file:
-        return json.load(data_file)
+def read_data_file() -> List[dict]:
+    with open('../twitter-client/tmp/data.json') as data_file:
+        return json.load(data_file)['statuses']
 
 
 if __name__ == "__main__":
@@ -47,13 +47,5 @@ if __name__ == "__main__":
     parser.add_argument('listenIp', help='The listen IP of the site')
     parser.add_argument('listenPort', help='The listen port of the site')
     args = parser.parse_args()
-    call_remote()
-    analyze_sentiment([
-        {
-            'text': 'sucky dude'
-        },
-        {
-            'text': 'great person'
-        }
-    ])
+    analyze_sentiment(read_data_file())
     app.run(host=args.listenIp, port=args.listenPort, debug=True)
