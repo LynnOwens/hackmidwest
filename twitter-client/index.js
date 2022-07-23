@@ -13,15 +13,13 @@ const params = {
     count: 1
 };
 
-// process.argv.forEach((val, index) => {
-//     console.log(`${index}: ${val}`);
-// });
 
 const args = JSON.stringify(process.argv.slice(2));
 let tweetSearchTerm = args.split('=')[1].slice(0, -2)
-console.log('You are searching for tweets by: ' + tweetSearchTerm)
 
 params.q = tweetSearchTerm;
+console.log('You are searching for tweets by: ' + params.q)
+
 
 
 let data = '';
