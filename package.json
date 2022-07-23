@@ -18,6 +18,7 @@
     },
     "homepage": "https://github.com/LynnOwens/hackmidwest#readme",
     "dependencies": {
+        "dotenv": "^16.0.1",
         "twitter-api-client": "^1.6.0"
     }
 }
