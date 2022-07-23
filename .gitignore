@@ -5,3 +5,4 @@ twitter-client/node_modules/*
 twitter-client/tmp/data.json
 .env
 /twitter-client/package-lock.json
+get-pip.py
