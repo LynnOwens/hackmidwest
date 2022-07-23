@@ -1,6 +1,9 @@
 import argparse
+import asyncio
 
 from flask import Flask, request
+from kasa import Discover
+from kasa.discover import DeviceDict
 
 app = Flask(__name__)
 
@@ -13,7 +16,15 @@ def index():
 @app.route("/activate", methods=['POST'])
 def process_term():
     print(request.get_json())
+    devices: DeviceDict = discover_devices()
+    for addr, dev in devices.items():
+        asyncio.run(dev.update())
+        print(f"{addr} >> {dev}")
     return 'foozbaz'
+
+
+def discover_devices() -> DeviceDict:
+    return asyncio.run(Discover.discover())
 
 
 if __name__ == "__main__":
