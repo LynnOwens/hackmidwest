@@ -1,1 +1,1 @@
-python3 main.py teamnaic.ksexton.github.beta.tailscale.net 8081
+python3 main.py 0.0.0.0 8081
