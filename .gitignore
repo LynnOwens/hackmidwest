@@ -1,6 +1,7 @@
 .idea
 analyzer/data.csv
 analyzer/output.json
-node_modules/*
+twitter-client/node_modules/*
 twitter-client/tmp/data.json
 .env
+/twitter-client/package-lock.json
