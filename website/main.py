@@ -1,3 +1,5 @@
+import json
+
 import requests
 from flask import Flask, render_template, request
 import argparse
@@ -33,6 +35,11 @@ def analyze_sentiment(tweets: List[dict]):
         tweet_text_blob = TextBlob(tweet['text'])
         sentiments.append(tweet_text_blob.sentiment.polarity)
     print(str(average_list(sentiments)))
+
+
+def read_data_file() -> dict:
+    with open('twitter_data') as data_file:
+        return json.load(data_file)
 
 
 if __name__ == "__main__":
