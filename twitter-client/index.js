@@ -1,5 +1,6 @@
 require('dotenv').config()
 const { TwitterClient } = require('twitter-api-client')
+const fs = require('fs');
 
 const twitterClient = new TwitterClient({
     apiKey: process.env.TWITTER_API_KEY,
@@ -10,11 +11,21 @@ const twitterClient = new TwitterClient({
 
 const params = {
     q: `UberConf`,
-    count: 10
+    count: 4
 };
 
-twitterClient.tweets.search(params).then(tweets => {
-    console.log(tweets);
+let data = '';
+
+twitterClient.tweets.search(params).then(tweet => {
+    data = JSON.stringify(tweet);
+
+    // write JSON string to a file
+    fs.writeFile('twitter-client/tmp/data.json', data, (err) => {
+        if (err) {
+            throw err;
+        }
+        console.log("JSON data is saved.");
+    });
 }).catch(e => {
     console.error(e)
 })
