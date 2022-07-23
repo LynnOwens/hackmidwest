@@ -1,1 +1,1 @@
-python3 main.py 146.190.42.170 80
+python3 main.py teamnaic.ksexton.github.beta.tailscale.net 8081
