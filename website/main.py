@@ -44,7 +44,7 @@ def read_data_file() -> List[dict]:
 
 
 def run_twitter_client():
-    subprocess.run(['node', '../twitter-client/index.js'])
+    subprocess.run(['node', 'twitter-client/index.js'], cwd='..')
 
 
 if __name__ == "__main__":
