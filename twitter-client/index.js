@@ -10,7 +10,7 @@ const twitterClient = new TwitterClient({
 })
 
 const params = {
-    count: 1
+    count: 5
 };
 
 
@@ -28,7 +28,7 @@ twitterClient.tweets.search(params).then(tweet => {
     data = JSON.stringify(tweet);
 
     // write JSON string to a file
-    fs.writeFile('./tmp/data.json', data, (err) => {
+    fs.writeFile('twitter-client/tmp/data.json', data, (err) => {
         if (err) {
             throw err;
         }

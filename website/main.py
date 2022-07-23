@@ -20,15 +20,18 @@ def index():
 def process_term():
     run_twitter_client(request.form['term'])
     tweets: List[dict] = read_data_file()
-    sentiment: float = analyze_sentiment(tweets)
-    call_remote(sentiment)
-    return str(sentiment)
+    if tweets:
+        sentiment: float = analyze_sentiment(tweets)
+        call_remote(sentiment)
+        return str(sentiment)
+    else:
+        return 'term not found'
 
 
 def call_remote(sentiment: float):
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
     response = requests.request('POST', 'http://127.0.0.1:8081/activate', headers=headers, json={'sentiment': sentiment})
-    print(response.content)
+    print('Response from pi daemon: ' + str(response.content))
 
 
 def average_list(data: List[float]) -> float:
@@ -40,6 +43,7 @@ def analyze_sentiment(tweets: List[dict]) -> float:
     for tweet in tweets:
         tweet_text_blob = TextBlob(tweet['text'])
         sentiments.append(tweet_text_blob.sentiment.polarity)
+        print('Tweet text is: ' + tweet['text'] + ' with polarity ' + str(tweet_text_blob.sentiment.polarity))
     return average_list(sentiments)
 
 
@@ -49,7 +53,7 @@ def read_data_file() -> List[dict]:
 
 
 def run_twitter_client(term: str):
-    subprocess.run(['node', 'twitter-client/index.js'], cwd='..')
+    subprocess.run(['node', 'twitter-client/index.js', 'term='+term], cwd='..')
 
 
 if __name__ == "__main__":
