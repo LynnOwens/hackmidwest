@@ -32,7 +32,8 @@ def process_term():
 
 def call_remote(sentiment: float):
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
-    response = requests.request('POST', 'http://127.0.0.1:8081/activate', headers=headers, json={'sentiment': sentiment})
+    print('calling teamnaic')
+    response = requests.request('POST', 'http://teamnaic:8081/activate', headers=headers, json={'sentiment': sentiment})
     print('Response from pi daemon: ' + str(response.content))
 
 
