@@ -10,7 +10,7 @@ const twitterClient = new TwitterClient({
 })
 
 const params = {
-    count: 5
+    count: 2
 };
 
 

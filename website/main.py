@@ -23,7 +23,9 @@ def process_term():
     if tweets:
         sentiment: float = analyze_sentiment(tweets)
         call_remote(sentiment)
-        return str(sentiment)
+        percent = str((sentiment + 1 / 2) * 100)
+        return render_template('search_results.html', sentiment_score=sentiment, color_gradient="linear-gradient(0.9turn, " + "#e66465, " + percent + "%, " + "#9198e5)")
+        # return str(sentiment)
     else:
         return 'term not found'
 
